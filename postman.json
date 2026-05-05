@@ -1,0 +1,769 @@
+{
+  "info": {
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "name": "States API Test Collection",
+    "description": "Complete test collection for the Node.js RESTful API for US States Data",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET Requests - Basic",
+      "item": [
+        {
+          "name": "Get All States",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Contiguous States Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states?contig=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states"
+              ],
+              "query": [
+                {
+                  "key": "contig",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Non-Contiguous States (AK, HI)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states?contig=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states"
+              ],
+              "query": [
+                {
+                  "key": "contig",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET Requests - Individual States",
+      "item": [
+        {
+          "name": "Get Kansas State Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Missouri State Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/MO",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "MO"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get California State Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/CA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "CA"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Texas State Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/TX",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "TX"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET Requests - Fun Facts",
+      "item": [
+        {
+          "name": "Get Random Kansas Fun Fact",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Random Missouri Fun Fact",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/MO/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "MO",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Random Colorado Fun Fact",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/CO/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "CO",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Fun Fact for State with No Facts (NH)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/NH/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "NH",
+                "funfact"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET Requests - State Properties",
+      "item": [
+        {
+          "name": "Get Kansas Capital",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/capital",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "capital"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Kansas Nickname",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/nickname",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "nickname"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Kansas Population",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/population",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "population"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Kansas Admission Date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/admission",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "admission"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get California Capital",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/CA/capital",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "CA",
+                "capital"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Texas Population",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/TX/population",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "TX",
+                "population"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PATCH Requests - Update Fun Facts",
+      "item": [
+        {
+          "name": "Update Kansas Fun Fact (Index 1)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": 1,\n  \"funfact\": \"Kansas is flatter than a pancake according to actual scientific research\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Missouri Fun Fact (Index 2)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": 2,\n  \"funfact\": \"Missouri has more than 6,000 caves, earning it the nickname 'The Cave State'\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/MO/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "MO",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Non-Existent Fun Fact (Index 10)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": 10,\n  \"funfact\": \"This should fail because index 10 doesn't exist\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE Requests - Remove Fun Facts",
+      "item": [
+        {
+          "name": "Delete Kansas Fun Fact (Index 3)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Non-Existent Fun Fact (Index 15)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": 15\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/OK/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "OK",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete from State with No Fun Facts (NH)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/NH/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "NH",
+                "funfact"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Testing",
+      "item": [
+        {
+          "name": "Invalid State Code (XX)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/XX",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "XX"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Full State Name (should 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/Kansas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "Kansas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST without funfacts property",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"facts\": [\"This should fail\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH without index",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"funfact\": \"This should fail because no index provided\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE without index",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"note\": \"This should fail because no index provided\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "404 Route (JSON Accept)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/nonexistent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "nonexistent"
+              ]
+            }
+          }
+        },
+        {
+          "name": "404 Route (HTML Accept)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/nonexistent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "nonexistent"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public Tests",
+      "item": [
+        {
+          "name": "Homepage",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Additional Fun Facts Tests",
+      "item": [
+        {
+          "name": "Add More Kansas Fun Facts (Test Append)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"funfacts\": [\n    \"The first Pizza Hut restaurant opened in Wichita, Kansas in 1958\",\n    \"Kansas is home to the world's largest ball of twine\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/states/KS/funfact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS",
+                "funfact"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Kansas After Adding More Facts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/states/KS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "states",
+                "KS"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
