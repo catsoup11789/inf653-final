@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>US States API - Docs</title>
+	<style>
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body {
+			font-family: 'Segoe UI', Arial, sans-serif;
+			min-height: 100vh;
+			background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #1565c0 100%);
+			padding: 40px 20px;
+		}
+		.page {
+			max-width: 720px;
+			margin: 0 auto;
+		}
+		.back-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			color: rgba(255,255,255,0.85);
+			text-decoration: none;
+			font-size: 0.9rem;
+			margin-bottom: 20px;
+			transition: color 0.2s;
+		}
+		.back-link:hover { color: white; }
+		h1 {
+			color: white;
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 6px;
+		}
+		.subtitle {
+			color: rgba(255,255,255,0.7);
+			font-size: 0.95rem;
+			margin-bottom: 30px;
+		}
+		.base-url-box {
+			background: rgba(255,255,255,0.12);
+			border: 1px solid rgba(255,255,255,0.2);
+			border-radius: 12px;
+			padding: 16px 20px;
+			margin-bottom: 28px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		.base-url-label {
+			color: rgba(255,255,255,0.6);
+			font-size: 0.75rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			white-space: nowrap;
+		}
+		.base-url-value {
+			color: #fff;
+			font-family: monospace;
+			font-size: 1rem;
+			word-break: break-all;
+		}
+		.section {
+			background: white;
+			border-radius: 16px;
+			overflow: hidden;
+			margin-bottom: 24px;
+			box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+		}
+		.section-header {
+			padding: 16px 22px;
+			font-weight: 700;
+			font-size: 0.8rem;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			border-bottom: 1px solid #eee;
+		}
+		.section-header.get  { background: #e8f5e9; color: #2e7d32; }
+		.section-header.post { background: #fff3e0; color: #e65100; }
+		.section-header.patch { background: #e3f2fd; color: #0277bd; }
+		.section-header.delete { background: #fce4ec; color: #c62828; }
+		.endpoint-row {
+			display: flex;
+			align-items: flex-start;
+			gap: 14px;
+			padding: 14px 22px;
+			border-bottom: 1px solid #f5f5f5;
+			text-decoration: none;
+			color: inherit;
+			transition: background 0.15s;
+		}
+		.endpoint-row:last-child { border-bottom: none; }
+		a.endpoint-row:hover { background: #f9f9ff; }
+		.method-badge {
+			font-size: 0.7rem;
+			font-weight: 700;
+			padding: 3px 8px;
+			border-radius: 6px;
+			white-space: nowrap;
+			margin-top: 2px;
+			min-width: 52px;
+			text-align: center;
+		}
+		.badge-get    { background: #e8f5e9; color: #2e7d32; }
+		.badge-post   { background: #fff3e0; color: #e65100; }
+		.badge-patch  { background: #e3f2fd; color: #0277bd; }
+		.badge-delete { background: #fce4ec; color: #c62828; }
+		.endpoint-path {
+			font-family: monospace;
+			font-size: 0.95rem;
+			color: #1a237e;
+			font-weight: 600;
+		}
+		.endpoint-desc {
+			font-size: 0.85rem;
+			color: #888;
+			margin-top: 3px;
+		}
+		.params-box {
+			background: #f5f7ff;
+			border-radius: 10px;
+			padding: 12px 16px;
+			margin-top: 6px;
+			font-size: 0.82rem;
+			color: #555;
+		}
+		.params-box code {
+			background: #e8eaf6;
+			color: #3949ab;
+			border-radius: 4px;
+			padding: 1px 5px;
+			font-family: monospace;
+		}
+		.note {
+			background: rgba(255,255,255,0.1);
+			border-radius: 12px;
+			padding: 14px 18px;
+			color: rgba(255,255,255,0.8);
+			font-size: 0.85rem;
+			line-height: 1.6;
+		}
+		.note strong { color: white; }
+	</style>
+</head>
+<body>
+<div class="page">
+	<a href="/" class="back-link">← Back to Explorer</a>
+
+	<h1>🇺🇸 US States API</h1>
+	<p class="subtitle">RESTful API for US State data — INF653 Final Project</p>
+
+	<div class="base-url-box">
+		<span class="base-url-label">Base URL</span>
+		<span class="base-url-value">https://inf653-final.catsoup.dev/states</span>
+	</div>
+
+	<!-- GET endpoints -->
+	<div class="section">
+		<div class="section-header get">GET Endpoints</div>
+
+		<a class="endpoint-row" href="/states/" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/</div>
+				<div class="endpoint-desc">Returns all 50 states with their data</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/?contig=true" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/?contig=true</div>
+				<div class="endpoint-desc">Returns only contiguous (lower 48) states</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/?contig=false" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/?contig=false</div>
+				<div class="endpoint-desc">Returns non-contiguous states only (AK, HI)</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/KS" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/:state</div>
+				<div class="endpoint-desc">Returns all data for a single state</div>
+				<div class="params-box">
+					<strong>Param:</strong> <code>:state</code> — 2-letter state abbreviation (e.g. <code>KS</code>, <code>CA</code>)
+				</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/KS/funfact" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/:state/funfact</div>
+				<div class="endpoint-desc">Returns a random fun fact for the state</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/KS/capital" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/:state/capital</div>
+				<div class="endpoint-desc">Returns the state's capital city</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/KS/nickname" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/:state/nickname</div>
+				<div class="endpoint-desc">Returns the state's nickname</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/KS/population" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/:state/population</div>
+				<div class="endpoint-desc">Returns the state's population (comma-formatted)</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/KS/admission" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/:state/admission</div>
+				<div class="endpoint-desc">Returns the state's admission date</div>
+			</div>
+		</a>
+	</div>
+
+	<!-- POST -->
+	<div class="section">
+		<div class="section-header post">POST Endpoints</div>
+		<div class="endpoint-row">
+			<span class="method-badge badge-post">POST</span>
+			<div>
+				<div class="endpoint-path">/states/:state/funfact</div>
+				<div class="endpoint-desc">Add one or more fun facts to a state</div>
+				<div class="params-box">
+					<strong>Body (JSON):</strong> <code>{ "funfacts": ["fact1", "fact2"] }</code>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- PATCH -->
+	<div class="section">
+		<div class="section-header patch">PATCH Endpoints</div>
+		<div class="endpoint-row">
+			<span class="method-badge badge-patch">PATCH</span>
+			<div>
+				<div class="endpoint-path">/states/:state/funfact</div>
+				<div class="endpoint-desc">Update a fun fact by index</div>
+				<div class="params-box">
+					<strong>Body (JSON):</strong> <code>{ "index": 1, "funfact": "Updated fact" }</code>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- DELETE -->
+	<div class="section">
+		<div class="section-header delete">DELETE Endpoints</div>
+		<div class="endpoint-row">
+			<span class="method-badge badge-delete">DELETE</span>
+			<div>
+				<div class="endpoint-path">/states/:state/funfact</div>
+				<div class="endpoint-desc">Delete a fun fact by index</div>
+				<div class="params-box">
+					<strong>Body (JSON):</strong> <code>{ "index": 1 }</code>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="note">
+		<strong>Note:</strong> State codes must be valid 2-letter US state abbreviations (case-insensitive). Invalid codes return <code style="background:rgba(255,255,255,0.15);color:white">{ "message": "Invalid state abbreviation parameter" }</code>.
+	</div>
+</div>
+</body>
+</html>
+
