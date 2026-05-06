@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -14,15 +13,17 @@ const PORT = process.env.PORT || 3000;
  */
 dbConn();
 
-app.use(cors());
+app.use(cors({
+	origin: ['https://dazzling-snickerdoodle-777101.netlify.app']
+}));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/states', require('./routes/states'));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+app.use('/states', require('./routes/states'));
 
 /**
  * Error Handling
