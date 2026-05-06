@@ -3,79 +3,219 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>INF653 Final Project - US States API</title>
+	<title>US States Explorer</title>
 	<style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .api-info {
-            background-color: #e3f2fd;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .endpoint {
-            background-color: #f5f5f5;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            font-family: monospace;
-        }
-        a {
-            color: #1976d2;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body {
+			font-family: 'Segoe UI', Arial, sans-serif;
+			min-height: 100vh;
+			background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #1565c0 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+		}
+		.card {
+			background: white;
+			border-radius: 20px;
+			box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+			max-width: 560px;
+			width: 100%;
+			overflow: hidden;
+		}
+		.card-header {
+			background: linear-gradient(135deg, #b71c1c, #c62828);
+			padding: 30px;
+			text-align: center;
+			color: white;
+			position: relative;
+		}
+		.flag-emoji { font-size: 3rem; display: block; margin-bottom: 8px; }
+		.state-name {
+			font-size: 2rem;
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+		.state-abbr {
+			font-size: 1rem;
+			opacity: 0.8;
+			margin-top: 4px;
+		}
+		.card-body { padding: 28px; }
+		#content { min-height: 260px; }
+		.info-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 16px;
+			margin-bottom: 20px;
+		}
+		.info-item {
+			background: #f5f7ff;
+			border-radius: 12px;
+			padding: 14px 16px;
+		}
+		.info-label {
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			color: #888;
+			margin-bottom: 4px;
+		}
+		.info-value {
+			font-size: 1.05rem;
+			font-weight: 600;
+			color: #1a237e;
+		}
+		.funfact-box {
+			background: #fff8e1;
+			border-left: 4px solid #ffc107;
+			border-radius: 8px;
+			padding: 16px;
+			margin-bottom: 20px;
+			font-size: 0.95rem;
+			color: #555;
+			line-height: 1.5;
+			min-height: 56px;
+		}
+		.funfact-label {
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			color: #bbb;
+			margin-bottom: 6px;
+		}
+		.btn {
+			display: block;
+			width: 100%;
+			padding: 14px;
+			background: linear-gradient(135deg, #1a237e, #1565c0);
+			color: white;
+			border: none;
+			border-radius: 12px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: opacity 0.2s, transform 0.1s;
+		}
+		.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+		.btn:active { transform: translateY(0); }
+		.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+		.loading {
+			text-align: center;
+			color: #aaa;
+			padding: 20px 0;
+			font-size: 0.95rem;
+		}
+		.spinner {
+			display: inline-block;
+			width: 28px;
+			height: 28px;
+			border: 3px solid #e0e0e0;
+			border-top-color: #1a237e;
+			border-radius: 50%;
+			animation: spin 0.7s linear infinite;
+			margin-bottom: 8px;
+		}
+		@keyframes spin { to { transform: rotate(360deg); } }
+		.error { color: #c62828; text-align: center; padding: 12px 0; font-size: 0.93rem; }
 	</style>
 </head>
 <body>
-<div class="container">
-	<h1>US States RESTful API</h1>
-	<p>Welcome to the INF653 Final Project - A RESTful API for US States Data</p>
-
-	<div class="api-info">
-		<h2>API Base URL</h2>
-		<div class="endpoint">https://inf653-final.catsoup.dev/states/</div>
+<div class="card">
+	<div class="card-header">
+		<span class="flag-emoji">🇺🇸</span>
+		<div class="state-name" id="state-name">US States Explorer</div>
+		<div class="state-abbr" id="state-abbr">Click below to discover a random state</div>
 	</div>
-
-	<h2>Available Endpoints</h2>
-
-	<h3>GET Requests</h3>
-	<div class="endpoint"><a href="/states/">/states/</a> - All state data</div>
-	<div class="endpoint"><a href="/states/?contig=true">/states/?contig=true</a> - Contiguous states only</div>
-	<div class="endpoint"><a href="/states/?contig=false">/states/?contig=false</a> - Non-contiguous states (AK, HI)</div>
-	<div class="endpoint"><a href="/states/KS">/states/:state</a> - Individual state data</div>
-	<div class="endpoint"><a href="/states/KS/funfact">/states/:state/funfact</a> - Random fun fact</div>
-	<div class="endpoint"><a href="/states/KS/capital">/states/:state/capital</a> - State capital</div>
-	<div class="endpoint"><a href="/states/KS/nickname">/states/:state/nickname</a> - State nickname</div>
-	<div class="endpoint"><a href="/states/KS/population">/states/:state/population</a> - State population</div>
-	<div class="endpoint"><a href="/states/KS/admission">/states/:state/admission</a> - Admission date</div>
-
-	<h3>POST/PATCH/DELETE Requests</h3>
-	<p>Use appropriate HTTP methods and JSON body for fun facts management:</p>
-	<div class="endpoint">POST /states/:state/funfact - Add fun facts</div>
-	<div class="endpoint">PATCH /states/:state/funfact - Update fun fact</div>
-	<div class="endpoint">DELETE /states/:state/funfact - Delete fun fact</div>
-
-	<div class="api-info">
-		<p><strong>Note:</strong> State codes must be 2-letter abbreviations (e.g., KS, MO, OK, NE, CO)</p>
+	<div class="card-body">
+		<div id="content">
+			<div class="loading">Press the button to load a random state!</div>
+		</div>
+		<button class="btn" id="random-btn" onclick="loadRandomState()">🎲 Random State</button>
+		<a href="/api.html" style="display:block;text-align:center;margin-top:14px;font-size:0.85rem;color:#888;text-decoration:none;">📄 View API Documentation</a>
 	</div>
 </div>
+
+<script>
+	const BASE = 'https://inf653-final.catsoup.dev/states';
+	const STATES = [
+		'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
+		'HI','ID','IL','IN','IA','KS','KY','LA','ME','MD',
+		'MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
+		'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC',
+		'SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
+	];
+
+	async function loadRandomState() {
+		const btn = document.getElementById('random-btn');
+		btn.disabled = true;
+		showLoading();
+
+		const code = STATES[Math.floor(Math.random() * STATES.length)];
+
+		try {
+			const [stateRes, factRes] = await Promise.all([
+				fetch(`${BASE}/${code}`),
+				fetch(`${BASE}/${code}/funfact`)
+			]);
+
+			const state = await stateRes.json();
+			let funfact = '';
+			if (factRes.ok) {
+				const factData = await factRes.json();
+				funfact = factData.funfact || '';
+			}
+
+			document.getElementById('state-name').textContent = state.state || code;
+			document.getElementById('state-abbr').textContent = state.code || code;
+
+			renderState(state, funfact);
+		} catch (e) {
+			document.getElementById('content').innerHTML = `<div class="error">Failed to load state data. Please try again.</div>`;
+		}
+
+		btn.disabled = false;
+	}
+
+	function renderState(s, funfact) {
+		const admission = s.admission_date
+			? new Date(s.admission_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+			: (s.admission || 'N/A');
+
+		document.getElementById('content').innerHTML = `
+			<div class="info-grid">
+				<div class="info-item">
+					<div class="info-label">Capital</div>
+					<div class="info-value">${s.capital_city || s.capital || 'N/A'}</div>
+				</div>
+				<div class="info-item">
+					<div class="info-label">Nickname</div>
+					<div class="info-value">${s.nickname || 'N/A'}</div>
+				</div>
+				<div class="info-item">
+					<div class="info-label">Population</div>
+					<div class="info-value">${s.population ? Number(s.population).toLocaleString() : 'N/A'}</div>
+				</div>
+				<div class="info-item">
+					<div class="info-label">Admitted</div>
+					<div class="info-value">${admission}</div>
+				</div>
+			</div>
+			<div class="funfact-label">🌟 Fun Fact</div>
+			<div class="funfact-box">${funfact || '<em style="color:#bbb">No fun facts on record yet.</em>'}</div>
+		`;
+	}
+
+	function showLoading() {
+		document.getElementById('state-name').textContent = 'Loading...';
+		document.getElementById('state-abbr').textContent = '';
+		document.getElementById('content').innerHTML = `
+			<div class="loading">
+				<div class="spinner"></div><br>Fetching state data...
+			</div>
+		`;
+	}
+</script>
 </body>
 </html>
+
