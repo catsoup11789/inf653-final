@@ -23,7 +23,7 @@ const getAllStates = async (req, res) => {
 				const dbState = await State.findOne({ stateCode: state.code });
 				return {
 					...state,
-					funfacts: dbState ? dbState.funfacts : undefined
+					...(dbState ? { funfacts: dbState.funfacts || [] } : {})
 				};
 			})
 		);
@@ -46,13 +46,13 @@ const getState = async (req, res) => {
 	try {
 		const stateData = statesData.find(state => state.code === stateCode);
 		if (!stateData) {
-			return res.status(404).json({ message: 'State not found' });
+			return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 		}
 
 		const dbState = await State.findOne({ stateCode });
 		const stateWithFunFacts = {
 			...stateData,
-			funfacts: dbState ? dbState.funfacts : undefined
+			...(dbState ? { funfacts: dbState.funfacts || [] } : {})
 		};
 
 		res.json(stateWithFunFacts);
@@ -73,7 +73,7 @@ const getFunFact = async (req, res) => {
 	try {
 		const stateData = statesData.find(state => state.code === stateCode);
 		if (!stateData) {
-			return res.status(404).json({ message: 'State not found' });
+			return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 		}
 
 		const dbState = await State.findOne({ stateCode });
@@ -99,7 +99,7 @@ const getCapital = async (req, res) => {
 
 	const stateData = statesData.find(state => state.code === stateCode);
 	if (!stateData) {
-		return res.status(404).json({ message: 'State not found' });
+		return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 	}
 
 	res.json({
@@ -119,7 +119,7 @@ const getNickname = async (req, res) => {
 
 	const stateData = statesData.find(state => state.code === stateCode);
 	if (!stateData) {
-		return res.status(404).json({ message: 'State not found' });
+		return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 	}
 
 	res.json({
@@ -139,12 +139,12 @@ const getPopulation = async (req, res) => {
 
 	const stateData = statesData.find(state => state.code === stateCode);
 	if (!stateData) {
-		return res.status(404).json({ message: 'State not found' });
+		return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 	}
 
 	res.json({
 		state: stateData.state,
-		population: stateData.population
+		population: stateData.population.toLocaleString('en-US')
 	});
 };
 
@@ -159,7 +159,7 @@ const getAdmission = async (req, res) => {
 
 	const stateData = statesData.find(state => state.code === stateCode);
 	if (!stateData) {
-		return res.status(404).json({ message: 'State not found' });
+		return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 	}
 
 	res.json({
@@ -178,14 +178,18 @@ const addFunFact = async (req, res) => {
 	const stateCode = req.params.state.toUpperCase();
 	const { funfacts } = req.body;
 
-	if (!funfacts || !Array.isArray(funfacts)) {
+	if (!funfacts) {
 		return res.status(400).json({ message: 'State fun facts value required' });
+	}
+
+	if(!Array.isArray(funfacts)) {
+		return res.status(400).json({ message: 'State fun facts value must be an array' });
 	}
 
 	try {
 		const stateData = statesData.find(state => state.code === stateCode);
 		if (!stateData) {
-			return res.status(404).json({ message: 'State not found' });
+			return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 		}
 
 		let dbState = await State.findOne({ stateCode });
@@ -223,7 +227,7 @@ const updateFunFact = async (req, res) => {
 	try {
 		const stateData = statesData.find(state => state.code === stateCode);
 		if (!stateData) {
-			return res.status(404).json({ message: 'State not found' });
+			return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 		}
 
 		const dbState = await State.findOne({ stateCode });
@@ -262,7 +266,7 @@ const deleteFunFact = async (req, res) => {
 	try {
 		const stateData = statesData.find(state => state.code === stateCode);
 		if (!stateData) {
-			return res.status(404).json({ message: 'State not found' });
+			return res.status(404).json({ message: 'Invalid state abbreviation parameter' });
 		}
 
 		const dbState = await State.findOne({ stateCode });
