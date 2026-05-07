@@ -67,6 +67,12 @@ npm run dev
 | `/states/:state/nickname` | State nickname |
 | `/states/:state/population` | State population |
 | `/states/:state/admission` | Statehood admission date |
+| `/states/rank/population?order=asc\|desc` | All states ranked by population (default: `desc`) |
+| `/states/rank/admission?order=asc\|desc` | All states ranked by admission order (default: `asc`) |
+| `/states/admitted/:year` | States admitted in a specific year |
+| `/states/admitted/before/:year` | States admitted before a given year |
+| `/states/admitted/after/:year` | States admitted after a given year |
+| `/states/search?name=` | Search states by name (partial, case-insensitive) |
 
 ### POST
 

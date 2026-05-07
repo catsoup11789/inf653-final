@@ -233,6 +233,72 @@
 				<div class="endpoint-desc">Returns the state's admission date</div>
 			</div>
 		</a>
+
+		<a class="endpoint-row" href="/states/rank/population" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/rank/population</div>
+				<div class="endpoint-desc">All states ranked by population</div>
+				<div class="params-box">
+					<strong>Query:</strong> <code>?order=asc|desc</code> — sort order (default: <code>desc</code>)
+				</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/rank/admission" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/rank/admission</div>
+				<div class="endpoint-desc">All states ranked by admission order</div>
+				<div class="params-box">
+					<strong>Query:</strong> <code>?order=asc|desc</code> — sort order (default: <code>asc</code>)
+				</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/admitted/1800" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/admitted/:year</div>
+				<div class="endpoint-desc">States admitted in a specific year</div>
+				<div class="params-box">
+					<strong>Param:</strong> <code>:year</code> — 4-digit year (e.g. <code>1787</code>)
+				</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/admitted/before/1800" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/admitted/before/:year</div>
+				<div class="endpoint-desc">States admitted strictly before a given year</div>
+				<div class="params-box">
+					<strong>Param:</strong> <code>:year</code> — 4-digit year (e.g. <code>1800</code>)
+				</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/admitted/after/1900" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/admitted/after/:year</div>
+				<div class="endpoint-desc">States admitted strictly after a given year</div>
+				<div class="params-box">
+					<strong>Param:</strong> <code>:year</code> — 4-digit year (e.g. <code>1900</code>)
+				</div>
+			</div>
+		</a>
+
+		<a class="endpoint-row" href="/states/search?name=new" target="_blank">
+			<span class="method-badge badge-get">GET</span>
+			<div>
+				<div class="endpoint-path">/states/search?name=</div>
+				<div class="endpoint-desc">Search states by name (partial, case-insensitive)</div>
+				<div class="params-box">
+					<strong>Query:</strong> <code>?name=new</code> — returns all states whose name contains the search term
+				</div>
+			</div>
+		</a>
 	</div>
 
 	<!-- POST -->

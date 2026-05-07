@@ -5,6 +5,24 @@ const statesController = require('../controllers/statesController');
 router.route('/')
 	.get(statesController.getAllStates);
 
+router.route('/rank/population')
+	.get(statesController.getPopulationRanking);
+
+router.route('/rank/admission')
+	.get(statesController.getAdmissionRanking);
+
+router.route('/admitted/before/:year')
+	.get(statesController.getAdmittedBefore);
+
+router.route('/admitted/after/:year')
+	.get(statesController.getAdmittedAfter);
+
+router.route('/admitted/:year')
+	.get(statesController.getAdmittedInYear);
+
+router.route('/search')
+	.get(statesController.searchStates);
+
 router.route('/:state')
 	.get(statesController.getState);
 

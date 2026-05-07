@@ -288,6 +288,129 @@ const deleteFunFact = async (req, res) => {
 	}
 };
 
+/**
+ * Get all states ranked by population (ascending or descending)
+ * Query: ?order=asc|desc (default: desc)
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const getPopulationRanking = (req, res) => {
+	const order = (req.query.order || 'desc').toLowerCase();
+	if (order !== 'asc' && order !== 'desc') {
+		return res.status(400).json({ message: 'order query parameter must be "asc" or "desc"' });
+	}
+	const sorted = [...statesData].sort((a, b) =>
+		order === 'asc' ? a.population - b.population : b.population - a.population
+	);
+	res.json(sorted.map((s, i) => ({
+		rank: i + 1,
+		state: s.state,
+		code: s.code,
+		population: s.population.toLocaleString('en-US')
+	})));
+};
+
+/**
+ * Get all states ranked by admission order (ascending or descending)
+ * Query: ?order=asc|desc (default: asc)
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const getAdmissionRanking = (req, res) => {
+	const order = (req.query.order || 'asc').toLowerCase();
+	if (order !== 'asc' && order !== 'desc') {
+		return res.status(400).json({ message: 'order query parameter must be "asc" or "desc"' });
+	}
+	const sorted = [...statesData].sort((a, b) =>
+		order === 'asc' ? a.admission_number - b.admission_number : b.admission_number - a.admission_number
+	);
+	res.json(sorted.map(s => ({
+		admission_number: s.admission_number,
+		state: s.state,
+		code: s.code,
+		admission_date: s.admission_date
+	})));
+};
+
+/**
+ * Get states admitted before a given year (exclusive)
+ * GET /states/admitted/before/:year
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const getAdmittedBefore = (req, res) => {
+	const year = parseInt(req.params.year);
+	if (isNaN(year)) {
+		return res.status(400).json({ message: 'Invalid year parameter' });
+	}
+	const results = statesData
+		.filter(s => new Date(s.admission_date).getFullYear() < year)
+		.sort((a, b) => new Date(a.admission_date) - new Date(b.admission_date));
+	res.json({ year, count: results.length, states: results.map(s => ({ state: s.state, code: s.code, admission_date: s.admission_date })) });
+};
+
+/**
+ * Get states admitted after a given year (exclusive)
+ * GET /states/admitted/after/:year
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const getAdmittedAfter = (req, res) => {
+	const year = parseInt(req.params.year);
+	if (isNaN(year)) {
+		return res.status(400).json({ message: 'Invalid year parameter' });
+	}
+	const results = statesData
+		.filter(s => new Date(s.admission_date).getFullYear() > year)
+		.sort((a, b) => new Date(a.admission_date) - new Date(b.admission_date));
+	res.json({ year, count: results.length, states: results.map(s => ({ state: s.state, code: s.code, admission_date: s.admission_date })) });
+};
+
+/**
+ * Get states admitted in a specific year
+ * GET /states/admitted/:year
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const getAdmittedInYear = (req, res) => {
+	const year = parseInt(req.params.year);
+	if (isNaN(year)) {
+		return res.status(400).json({ message: 'Invalid year parameter' });
+	}
+	const results = statesData
+		.filter(s => new Date(s.admission_date).getFullYear() === year)
+		.sort((a, b) => new Date(a.admission_date) - new Date(b.admission_date));
+	if (results.length === 0) {
+		return res.json({ year, count: 0, message: `No states were admitted in ${year}`, states: [] });
+	}
+	res.json({ year, count: results.length, states: results.map(s => ({ state: s.state, code: s.code, admission_date: s.admission_date })) });
+};
+
+/**
+ * Search states by name (partial, case-insensitive)
+ * GET /states/search?name=new
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const searchStates = (req, res) => {
+	const { name } = req.query;
+	if (!name || name.trim() === '') {
+		return res.status(400).json({ message: 'name query parameter is required' });
+	}
+	const term = name.trim().toLowerCase();
+	const results = statesData.filter(s => s.state.toLowerCase().includes(term));
+	if (results.length === 0) {
+		return res.json({ count: 0, message: `No states found matching "${name}"`, states: [] });
+	}
+	res.json({ count: results.length, states: results.map(s => ({ state: s.state, code: s.code, nickname: s.nickname })) });
+};
+
 module.exports = {
 	getAllStates,
 	getState,
@@ -298,5 +421,11 @@ module.exports = {
 	getAdmission,
 	addFunFact,
 	updateFunFact,
-	deleteFunFact
+	deleteFunFact,
+	getPopulationRanking,
+	getAdmissionRanking,
+	getAdmittedBefore,
+	getAdmittedAfter,
+	getAdmittedInYear,
+	searchStates
 };
